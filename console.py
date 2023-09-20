@@ -73,7 +73,7 @@ class HBNBCommand(cmd.Cmd):
                 pline = pline[2].strip()  # pline is now str
                 if pline:
                     # check for *args or **kwargs
-                    if pline[0] is '{' and pline[-1] is'}'\
+                    if pline[0] == '{' and pline[-1] == '}'\
                             and type(eval(pline)) is dict:
                         _args = pline
                     else:
@@ -129,14 +129,13 @@ class HBNBCommand(cmd.Cmd):
                 if isinstance(value, str):
                     value = value.replace("_", " ").replace('"', '\\"')
                 kwargs[key] = value
-
-            new_instance = HBNBCommand.classes[class_name](**kwargs)
-            new_instance.save()
-            print(new_instance.id)
         except SyntaxError as e:
             print(e)
         except NameError as e:
             print(e)
+        new_instance = HBNBCommand.classes[class_name](**kwargs)
+        new_instance.save()
+        print(new_instance.id)
 
     def help_create(self):
         """ Help information for the create method """
@@ -331,6 +330,7 @@ class HBNBCommand(cmd.Cmd):
         """ Help information for the update class """
         print("Updates an object with new information")
         print("Usage: update <className> <id> <attName> <attVal>\n")
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
