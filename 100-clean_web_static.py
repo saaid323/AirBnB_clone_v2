@@ -49,17 +49,8 @@ def deploy():
 
 def do_clean(number=0):
     """deletes out-of-date archives"""
-    path = "versions"
-    file_list = os.listdir(path)
-    if int(number) == 0 or int(number) == 1:
-        for i in file_list[:-1]:
-            file_path = os.path.join(path, filename)
-            if os.path.exists(file_path):
-                local("rm -rf {}".format(file_path))
-                run("rm -rf /data/web_static/releases/{}".format(i))
-    else:
-        for i in file_list[:-int(number)]:
-            file_path = os.path.join(path, filename)
-            if os.path.exists(file_path):
-                local("rm -rf {}".format(file_path))
-                run("rm -rf /data/web_static/releases/{}".format(i))
+    if number == 0:
+        number = 1
+    path = "/data/web_static/releases"
+    local("ls -dt ./versions/* | head -n -{} | xargs rm -fr".format(number))
+    run("ls -dt {}/* | head -n -{} | xargs rm -fr".format(path, number))
