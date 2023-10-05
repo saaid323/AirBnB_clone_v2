@@ -6,7 +6,7 @@ if ! dpkg -l | grep -q "nginx"; then
 fi
 sudo mkdir -p /data/web_static/releases/test/ /data/web_static/shared/
 echo "<html><head></head><body>Hello, web_static!</body></html>" >  /data/web_static/releases/test/index.html
-rm -rf /data/web_static/current
+sudo rm -rf /data/web_static/current
 sudo ln -sf /data/web_static/releases/test/ /data/web_static/current
 sudo chown -R ubuntu:ubuntu /data/
 echo "server {
