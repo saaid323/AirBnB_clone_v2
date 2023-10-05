@@ -28,7 +28,7 @@ def do_deploy(archive_path):
         )
     run("mkdir -p {}".format(folder_name))
     run("tar -xzf /tmp/{} -C {}".format(archive_filename, folder_name))
-    run("mv {}/web_static/* {}".format(folder_name))
+    run("mv {0}/web_static/* {0}".format(folder_name))
     run("rm -rf {}/web_static".format(folder_name))
     run("rm /tmp/{}".format(archive_filename))
     current_link = "/data/web_static/current"
