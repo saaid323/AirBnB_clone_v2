@@ -4,11 +4,10 @@ if ! dpkg -l | grep -q "nginx"; then
         sudo apt-get -y update
         sudo apt-get -y install nginx
 fi
-sudo mkdir -p /data/web_static/releases/test/ /data/web_static/shared/
+mkdir -p /data/web_static/releases/test/ /data/web_static/shared/
 echo "<html><head></head><body>Hello, web_static!</body></html>" >  /data/web_static/releases/test/index.html
-sudo rm -rf /data/web_static/current
-sudo ln -sf /data/web_static/releases/test/ /data/web_static/current
-sudo chown -R ubuntu:ubuntu /data/
+ln -sf /data/web_static/releases/test/ /data/web_static/current
+chown -R ubuntu:ubuntu /data/
 echo "server {
     listen 80;
     location /hbnb_static/ {
