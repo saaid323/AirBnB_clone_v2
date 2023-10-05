@@ -55,11 +55,11 @@ def do_clean(number=0):
         for i in file_list[:-1]:
             file_path = os.path.join(path, filename)
             if os.path.exists(file_path):
-                os.remove(file_path)
+                local("rm -rf {}".format(file_path))
                 run("rm -rf /data/web_static/releases/{}".format(i))
     else:
         for i in file_list[:number]:
             file_path = os.path.join(path, filename)
             if os.path.exists(file_path):
-                os.remove(file_path)
+                local("rm -rf {}".format(file_path))
                 run("rm -rf /data/web_static/releases/{}".format(i))
