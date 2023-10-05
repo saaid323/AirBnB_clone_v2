@@ -56,10 +56,10 @@ def do_clean(number=0):
             file_path = os.path.join(path, filename)
             if os.path.exists(file_path):
                 os.remove(file_path)
-                run("rm -rf {}".format(file_path))
+                run("rm -rf /data/web_static/releases/{}".format(file_path))
     else:
         for i in file_list[:number]:
             file_path = os.path.join(path, filename)
             if os.path.exists(file_path):
                 os.remove(file_path)
-                run("rm -rf {}".format(file_path))
+                run("rm -rf /data/web_static/releases/{}".format(file_path))
