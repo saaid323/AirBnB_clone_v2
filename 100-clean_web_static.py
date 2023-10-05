@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """abric script (based on the file 1-pack_web_static.py) that distributes
 an archive to your web servers, using the function do_deploy """
-from fabric.api import run, put, env, local
+from fabric.api import run, put, env, local, task
 from datetime import datetime
 import os
 env.hosts = ['100.25.23.226', '54.90.28.30']
@@ -47,6 +47,7 @@ def deploy():
     return do_deploy(path)
 
 
+@task
 def do_clean(number=0):
     """deletes out-of-date archives"""
     if number == 0:
