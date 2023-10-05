@@ -51,7 +51,7 @@ def do_clean(number=0):
     """deletes out-of-date archives"""
     path = "versions"
     file_list = os.listdir(path)
-    if number == 0 or number == 1:
+    if int(number) == 0 or int(number) == 1:
         for i in file_list[:-1]:
             file_path = os.path.join(path, filename)
             if os.path.exists(file_path):
