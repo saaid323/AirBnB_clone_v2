@@ -50,7 +50,8 @@ def deploy():
 def do_clean(number=0):
     """deletes out-of-date archives"""
     if number == 0:
-        number = 1
+        num = 1
+    num = int(number)
     path = "/data/web_static/releases"
     local("ls -dt ./versions/* | head -n -{} | xargs rm -fr".format(number))
     run("ls -dt {}/* | head -n -{} | xargs rm -fr".format(path, number))
