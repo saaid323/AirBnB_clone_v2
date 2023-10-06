@@ -1,38 +1,30 @@
 # sets up your web servers for the deployment of web_static
-package { 'inginx':
-  ensure   => 'present',
-  provider => 'apt'
+
+exec {'apt':
+  command => '/usr/bin/apt-get update',
 } ->
-file { '/data':
-  ensure  => 'directory'
+package { 'nginx':
+  ensure => installed,
 } ->
-file { '/data/web_static':
-  ensure => 'directory'
+exec { 'folders':
+  command => '/usr/bin/mkdir -p "/data/web_static/releases/test/" "/data/web_static/shared/"',
 } ->
-file { '/data/web_static/releases':
-  ensure => 'directory'
+exec { 'msg':
+  command => '/usr/bin/echo "Hi!" | sudo tee /data/web_static/releases/test/index.html > /dev/null',
 } ->
-file { '/data/web_static/releases/test':
-  ensure => 'directory'
+exec { 'remove':
+  command => '/usr/bin/rm -rf /data/web_static/current',
 } ->
-file { '/data/web_static/shared':
-  ensure => 'directory'
+exec { 'link':
+  command => '/usr/bin/ln -s /data/web_static/releases/test/ /data/web_static/current',
 } ->
-file { '/data/web_static/releases/test/index.html':
-  ensure  => 'present',
-  content => "Hello, web_static!/n"
+exec { 'ownership':
+  command => '/usr/bin/chown -R ubuntu:ubuntu /data/',
 } ->
-file { '/data/web_static/current':
-  ensure => 'link',
-  target => '/data/web_static/releases/test'
+exec { 'static':
+  command => 'sudo sed -i "/^server {/a \ \n\tlocation \/hbnb_static {alias /data/web_static/current/;index index.html;}" /etc/nginx/sites-enabled/default',
+  provider => shell,
 } ->
-exec { 'chown -R ubuntu:ubuntu /data/':
-  path => '/usr/bin/:/usr/local/bin/:/bin/'
-}
-file { '/etc/nginx/sites-available/default':
-  ensure  => 'present',
-  content => 's|server_name _;|server_name _;\n\n\tlocation /hbnb_static {\n\t\talias /data/web_static/current/;\n\t}|'
-} ->
-exec { 'nginx restart':
-  path => '/etc/init.d/'
+exec { 'restart':
+  command => '/usr/sbin/service nginx restart',
 }
