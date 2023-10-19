@@ -13,8 +13,7 @@ def displays_python(text=None):
     if text is None:
        text = 'is cool'
     x = text
-    if "_" in text:
-        x = text.replace('_', ' ')
+    x = text.replace('_', ' ')
     return "Python {}".format(escape(x))
 
 
