@@ -11,7 +11,7 @@ app = Flask(__name__)
 def displays_python(text=None):
     """display "Python", followed by the value of the text variable"""
     if text is None:
-       text = 'is cool'
+        text = 'is cool'
     x = text
     x = text.replace('_', ' ')
     return "Python {}".format(escape(x))
