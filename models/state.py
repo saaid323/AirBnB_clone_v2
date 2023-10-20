@@ -20,6 +20,7 @@ class State(BaseModel, Base):
             cascade='all, delete, delete-orphan',
             back_populates='state'
         )
+
     else:
         @property
         def cities(self):
