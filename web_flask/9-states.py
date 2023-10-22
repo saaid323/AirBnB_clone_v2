@@ -7,7 +7,7 @@ from models import storage
 app = Flask(__name__)
 
 
-@app.route('/states', methods=['GET'], strict_slashes=False)
+@app.route('/states', strict_slashes=False)
 def states_list():
     """display a HTML page"""
     states = storage.all(State).values()
@@ -16,18 +16,17 @@ def states_list():
     return render_template('9-states.html', no_id=no_id, states=states)
 
 
-@app.route('/states/<id>', methods=['GET'], strict_slashes=False)
+@app.route('/states/<id>', strict_slashes=False)
 def states_city(id=None):
     """display a HTML page"""
     states = storage.all(State).values()
-    i_id = True
     state = None
     for s in states:
         if s.id == id:
             state = s
-    else:
-        i_id = False
-    return render_template('9-states.html', i_id=i_id, state=state)
+    if state is None:
+        return render_template('9-states.html', no=True)
+    return render_template('9-states.html', state=state, i_id=True)
 
 
 @app.teardown_appcontext
