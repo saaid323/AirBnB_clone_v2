@@ -9,6 +9,7 @@ app = Flask(__name__)
 
 @app.route('/hbnb_filters', strict_slashes=False)
 def all():
+    """displays 10-hbnb_filters.html"""
     states = storage.all(State).values()
     amenities = storage.all(Amenity).values()
     return render_template("10-hbnb_filters.html", amen=amenities, state=states)
@@ -16,7 +17,7 @@ def all():
 
 @app.teardown_appcontext
 def teardown(exc):
-    """Remove the current SQLAlchemy session."""
+    """close the database"""
     storage.close()
 
 
